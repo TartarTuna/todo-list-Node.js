@@ -1,0 +1,129 @@
+{
+	"info": {
+		"_postman_id": "8d1e8329-419e-4b29-b614-501a2bcb214b",
+		"name": "todo-list-node.js",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "all todo list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://floating-bayou-61639.herokuapp.com/posts",
+					"protocol": "https",
+					"host": [
+						"floating-bayou-61639",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "new todo item",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"領 9000 塊\",\r\n  \"image\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://floating-bayou-61639.herokuapp.com/posts",
+					"protocol": "https",
+					"host": [
+						"floating-bayou-61639",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "all todo item",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://floating-bayou-61639.herokuapp.com/posts",
+					"protocol": "https",
+					"host": [
+						"floating-bayou-61639",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "specific todo item",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"送衣服去乾洗\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://floating-bayou-61639.herokuapp.com/posts/625ebcd8e812de2d244facd0",
+					"protocol": "https",
+					"host": [
+						"floating-bayou-61639",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts",
+						"625ebcd8e812de2d244facd0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "specific todo item",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://floating-bayou-61639.herokuapp.com/posts/625ebcd8e812de2d244facd0",
+					"protocol": "https",
+					"host": [
+						"floating-bayou-61639",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts",
+						"625ebcd8e812de2d244facd0"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
