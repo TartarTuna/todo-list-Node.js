@@ -86,7 +86,7 @@ const reqListener = async (req, res) => {
       posts: []
     }))
     res.end()
-  } else if (req.url.startWith('/posts/') && req.method === 'DELETE') {
+  } else if (req.url.startsWith('/posts/') && req.method === 'DELETE') {
     try {
       const id = req.url.split('/').pop()
       await Post.findByIdAndDelete(id)
@@ -100,7 +100,7 @@ const reqListener = async (req, res) => {
     } catch (err) {
       errorHandler(res, err)
     }
-  } else if (req.url.startWith('/posts/') && req.method === 'PATCH') {
+  } else if (req.url.startsWith('/posts/') && req.method === 'PATCH') {
     req.on('end', async () => {
       try {
         const id = req.url.split('/').pop()
