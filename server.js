@@ -20,7 +20,7 @@ mongoose.connect(DB)
     console.log(err)
   })
 
-// const testRoom = new Room(
+// const testPost = new Post(
 //   { 
 //     name: '豪華雙人房5',
 //     price: 4000,
@@ -28,7 +28,7 @@ mongoose.connect(DB)
 //   }
 // )
 
-// testRoom.save()
+// testPost.save()
 //   .then(() => {
 //     console.log('新增資料成功')
 //   })
@@ -79,14 +79,14 @@ const reqListener = async (req, res) => {
       }
     })
   } else if (req.url === '/posts' && req.method === 'DELETE') {
-    await Room.deleteMany({})
+    await Post.deleteMany({})
     res.writeHead(200, headers)
     res.write(JSON.stringify({
       'status': 'success',
       posts: []
     }))
     res.end()
-  } else if (req.url.startWith === '/posts/' && req.method === 'DELETE') {
+  } else if (req.url.startWith('/posts/') && req.method === 'DELETE') {
     try {
       const id = req.url.split('/').pop()
       await Post.findByIdAndDelete(id)
@@ -100,7 +100,7 @@ const reqListener = async (req, res) => {
     } catch (err) {
       errorHandler(res, err)
     }
-  } else if (req.url.startWith === '/posts/' && req.method === 'PATCH') {
+  } else if (req.url.startWith('/posts/') && req.method === 'PATCH') {
     req.on('end', async () => {
       try {
         const id = req.url.split('/').pop()
