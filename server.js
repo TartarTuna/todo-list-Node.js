@@ -1,5 +1,5 @@
-const Post = require('./models/post.js')
 const http = require('http')
+const Post = require('./models/post.js')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const errorHandler = require('./errorHandler.js')
@@ -64,9 +64,8 @@ const reqListener = async (req, res) => {
         const data = JSON.parse(body)
         const newPost = await Post.create(
           {
-            name: data.name,
-            price: data.price,
-            rating: data.rating
+            title: data.title,
+            image: data.image,
           }
         )
         res.writeHead(200, headers)
@@ -109,8 +108,7 @@ const reqListener = async (req, res) => {
         const newPost = await Post.findByIdAndUpdate(
           id,
           {
-            name: data.name,
-            content: data.content,
+            title: data.title,
             image: data.image,
           },
           { new: true }

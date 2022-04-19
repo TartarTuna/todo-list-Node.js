@@ -2,41 +2,18 @@ const mongoose = require('mongoose')
 
 const postSchema = new mongoose.Schema(
   {
-    name: {
+    title: {
       type: String,
-      required: [true, '姓名未填寫']
-    },
-    tags: [
-      {
-        type: String,
-        required: [true, 'tags 未填寫']
-      }
-    ],
-    type: {
-      type: String,
-      enum: ['group', 'person'],
-      required: [true, 'type 未填寫']
+      required: [true, "title 未填寫"],
     },
     image: {
       type: String,
-      default: ''
+      default: "",
     },
-    createAt: {
+    createdAt: {
       type: Date,
-      default: Date.now,
-      select: false
-    },
-    content: {
-      type: String,
-      required: [true, 'Content 未填寫'],
-    },
-    likes: {
-      type: Number,
-      default: 0
-    },
-    comments: {
-      type: Number,
-      default: 0
+      default: Date.now(),
+      select: false,
     }
   },
   {
