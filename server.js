@@ -121,6 +121,7 @@ const reqListener = async (req, res) => {
             data: newPost,
           })
         )
+        res.end()
       } catch (err) {
         errorHandler(res, err)
       }
