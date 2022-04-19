@@ -88,13 +88,14 @@ const reqListener = async (req, res) => {
     res.end()
   } else if (req.url.startsWith('/posts/') && req.method === 'DELETE') {
     try {
+      const posts = await Post.find()
       const id = req.url.split('/').pop()
       await Post.findByIdAndDelete(id)
 
       res.writeHead(200, headers)
       res.write(JSON.stringify({
         'status': 'success',
-        posts: []
+        posts
       }))
       res.end()
     } catch (err) {
