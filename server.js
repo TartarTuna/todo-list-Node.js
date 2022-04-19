@@ -104,6 +104,7 @@ const reqListener = async (req, res) => {
     req.on('end', async () => {
       try {
         const id = req.url.split('/').pop()
+        const data = JSON.parse(body)
 
         const newPost = await Post.findByIdAndUpdate(
           id,
