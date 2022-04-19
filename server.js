@@ -1,10 +1,11 @@
-const Room = require('./models/rooms.js')
+const Post = require('./models/post.js')
 const http = require('http')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
+const errorHandler = require('./errorHandler.js')
 
-dotenv.config({path:"./config.env"})
-console.log(process.env.PORT)
+dotenv.config({ path: "./config.env" })
+// console.log(process.env.PORT)
 
 const DB = process.env.DATABASE.replace(
   '<password>',
@@ -49,19 +50,19 @@ const reqListener = async (req, res) => {
     body += chunk
   })
 
-  if (req.url === '/rooms' && req.method === 'GET') {
-    const rooms = await Room.find()
+  if (req.url === '/posts' && req.method === 'GET') {
+    const posts = await Post.find()
     res.writeHead(200, headers)
     res.write(JSON.stringify({
       'status': 'success',
-      rooms
+      posts
     }))
     res.end()
-  } else if (req.url === '/rooms' && req.method === 'POST') {
+  } else if (req.url === '/posts' && req.method === 'POST') {
     req.on('end', async () => {
       try {
         const data = JSON.parse(body)
-        const newRoom = await Room.create(
+        const newPost = await Post.create(
           {
             name: data.name,
             price: data.price,
@@ -71,27 +72,60 @@ const reqListener = async (req, res) => {
         res.writeHead(200, headers)
         res.write(JSON.stringify({
           'status': 'success',
-          'rooms': newRoom
+          'posts': newPost
         }))
         res.end()
       } catch (err) {
-        res.writeHead(404, headers)
-        res.write(JSON.stringify({
-          'status': 'false',
-          'message': '欄位填寫錯誤或無此 ID',
-          'error': err
-        }))
-        res.end()
+        errorHandler(res, err)
       }
     })
-  } else if (req.url === '/rooms' && req.method === 'DELETE') {
+  } else if (req.url === '/posts' && req.method === 'DELETE') {
     await Room.deleteMany({})
     res.writeHead(200, headers)
     res.write(JSON.stringify({
       'status': 'success',
-      rooms: []
+      posts: []
     }))
     res.end()
+  } else if (req.url.startWith === '/posts/' && req.method === 'DELETE') {
+    try {
+      const id = req.url.split('/').pop()
+      await Post.findByIdAndDelete(id)
+
+      res.writeHead(200, headers)
+      res.write(JSON.stringify({
+        'status': 'success',
+        posts: []
+      }))
+      res.end()
+    } catch (err) {
+      errorHandler(res, err)
+    }
+  } else if (req.url.startWith === '/posts/' && req.method === 'PATCH') {
+    req.on('end', async () => {
+      try {
+        const id = req.url.split('/').pop()
+
+        const newPost = await Post.findByIdAndUpdate(
+          id,
+          {
+            name: data.name,
+            content: data.content,
+            image: data.image,
+          },
+          { new: true }
+        )
+        res.writeHead(200, headers)
+        res.write(
+          JSON.stringify({
+            status: "success",
+            data: newPost,
+          })
+        )
+      } catch (err) {
+        errorHandler(res, err)
+      }
+    })
   } else if (req.method === "OPTIONS") {
     res.writeHead(200, headers)
     res.end()
